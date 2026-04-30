@@ -3,6 +3,8 @@ import { useState } from "react";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/shop", label: "Shop" },
+  { href: "/cart", label: "Cart" },
   { href: "#new-arrivals", label: "New Arrivals" },
   { href: "#collections", label: "Collections" },
   { href: "#sale", label: "Sale" },
@@ -38,12 +40,12 @@ export default function Navbar() {
           >
             Sign In
           </button>
-          <button
-            type="button"
+          <Link
+            href="/shop"
             className="rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700"
           >
             Shop Now
-          </button>
+          </Link>
         </div>
 
         <button
@@ -84,12 +86,13 @@ export default function Navbar() {
             >
               Sign In
             </button>
-            <button
-              type="button"
-              className="rounded-full bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700"
+            <Link
+              href="/shop"
+              className="rounded-full bg-pink-600 px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-pink-700"
+              onClick={() => setIsOpen(false)}
             >
               Shop Now
-            </button>
+            </Link>
           </div>
         </div>
       ) : null}

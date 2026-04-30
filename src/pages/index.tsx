@@ -1,8 +1,8 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white text-gray-900">
+    <div className="min-h-screen bg-linear-to-b from-rose-50 to-white text-gray-900">
       <Navbar />
 
       <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">

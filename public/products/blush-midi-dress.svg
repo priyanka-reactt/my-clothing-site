@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Blush Midi Dress">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1f2"/>
+      <stop offset="1" stop-color="#ffe4e6"/>
+    </linearGradient>
+    <linearGradient id="fabric" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#e11d48"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" rx="88" fill="url(#bg)"/>
+  <circle cx="900" cy="280" r="190" fill="#fbcfe8" opacity="0.7"/>
+  <circle cx="320" cy="1220" r="260" fill="#fecdd3" opacity="0.8"/>
+  <g transform="translate(260 220)">
+    <path d="M340 40c76 0 150 40 150 96 0 38-26 70-66 88l36 138c18 70 40 156 70 310 30 154 52 292 66 414H84c14-122 36-260 66-414 30-154 52-240 70-310l36-138c-40-18-66-50-66-88 0-56 74-96 150-96Z" fill="url(#fabric)"/>
+    <path d="M252 220c48 18 88 18 176 0" stroke="#fff" stroke-width="20" opacity="0.35" stroke-linecap="round"/>
+    <path d="M166 586c56 24 112 38 174 38s118-14 174-38" stroke="#fff" stroke-width="18" opacity="0.25" stroke-linecap="round"/>
+  </g>
+  <text x="80" y="140" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="54" font-weight="700" fill="#be123c" opacity="0.9">LuxeHer</text>
+</svg>
