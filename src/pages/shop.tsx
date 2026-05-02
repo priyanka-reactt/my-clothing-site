@@ -1,53 +1,26 @@
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/product-card";
 import { PRODUCTS, type Product } from "@/data/products";
-import { useEffect, useMemo, useState } from "react";
-
-type CartLine = {
-  productId: string;
-  quantity: number;
-};
-
-const CART_STORAGE_KEY = "luxeher_cart_v1";
-
-function loadCart(): CartLine[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(CART_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return [];
-    return parsed
-      .filter(
-        (line): line is CartLine =>
-          typeof line === "object" &&
-          line !== null &&
-          "productId" in line &&
-          "quantity" in line &&
-          typeof (line as { productId?: unknown }).productId === "string" &&
-          typeof (line as { quantity?: unknown }).quantity === "number",
-      )
-      .map((line) => ({ productId: line.productId, quantity: Math.max(1, Math.floor(line.quantity)) }));
-  } catch {
-    return [];
-  }
-}
-
-function saveCart(lines: CartLine[]) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(lines));
-}
+import { loadCart, persistCart, type CartLine } from "@/lib/cart-storage";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function ShopPage() {
   const [cart, setCart] = useState<CartLine[]>([]);
   const [recentlyAddedId, setRecentlyAddedId] = useState<string | null>(null);
+  const skipNextPersist = useRef(true);
 
   useEffect(() => {
-    setCart(loadCart());
+    const lines = loadCart();
+    setCart(lines);
+    skipNextPersist.current = true;
   }, []);
 
   useEffect(() => {
-    saveCart(cart);
+    if (skipNextPersist.current) {
+      skipNextPersist.current = false;
+      return;
+    }
+    persistCart(cart);
   }, [cart]);
 
   const cartCount = useMemo(
@@ -100,4 +73,3 @@ export default function ShopPage() {
     </div>
   );
 }
-
