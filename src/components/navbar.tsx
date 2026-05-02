@@ -32,6 +32,7 @@ export default function Navbar() {
         setCartCount(0);
       }
     }
+    
 
     updateCartCount();
 
