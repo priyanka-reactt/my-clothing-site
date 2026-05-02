@@ -115,8 +115,16 @@ export default function CartPage() {
               <Link href="/shop" className="text-sm font-medium text-pink-700 hover:text-pink-800">
                 ← Continue shopping
               </Link>
-              <div className="text-sm font-medium text-gray-700">
-                Cart total: <span className="font-semibold text-pink-700">${total.toFixed(2)}</span>
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="text-sm font-medium text-gray-700">
+                  Cart total: <span className="font-semibold text-pink-700">${total.toFixed(2)}</span>
+                </div>
+                <Link
+                  href="/checkout"
+                  className="inline-flex rounded-full bg-pink-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-pink-700"
+                >
+                  Proceed to Checkout
+                </Link>
               </div>
             </div>
           </section>
