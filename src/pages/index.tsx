@@ -4,6 +4,39 @@ import Link from "next/link";
 import { PRODUCTS } from "@/data/products";
 
 export default function Home() {
+  const featuredImageById: Record<string, { src: string; alt: string }> = {
+    "blush-midi-dress": {
+      src: "/products/image6.jpg",
+      alt: "Two fashionable women in a spring look",
+    },
+    "tailored-blazer": {
+      src: "/products/image7.jpg",
+      alt: "Models wearing tailored coats",
+    },
+    "cream-knit-cardigan": {
+      src: "/products/stylish-woman-spending-time-summer-field.jpg",
+      alt: "Model outdoors in a soft, neutral outfit",
+    },
+    "rose-satin-skirt": {
+      src: "/products/posing.jpg",
+      alt: "Model posing in a modern outfit",
+    },
+    "ivory-essential-tee": {
+      src: "/products/hips.jpg",
+      alt: "Minimal outfit detail shot",
+    },
+    "wide-brim-hat": {
+      src: "/products/isolated.jpg",
+      alt: "Modern fashion look on a clean background",
+    },
+    
+  };
+
+  const featured = PRODUCTS.slice(0, 6).map((product) => {
+    const override = featuredImageById[product.id];
+    return override ? { ...product, imageSrc: override.src, imageAlt: override.alt } : product;
+  });
+
   return (
     <div className="min-h-screen bg-linear-to-b from-rose-50 to-white text-gray-900">
       <Navbar />
@@ -58,8 +91,8 @@ export default function Home() {
               <div className="absolute -inset-6 -z-10 rounded-4xl bg-radial from-pink-200/70 via-rose-100/40 to-transparent blur-2xl" />
               <div className="relative aspect-4/5 w-full overflow-hidden rounded-3xl ring-1 ring-rose-100">
                 <Image
-                  src="/products/stylish-woman-spending-time-summer-field.jpg"
-                  alt="Model wearing a stylish outfit"
+                  src="/products/two-fashionable-young-women-casual-trendy-spring-coat-boots-with-heels-black-hat-stylish-handbag.jpg"
+                  alt="Fashion models in a modern spring look"
                   fill
                   priority
                   sizes="(min-width: 1024px) 520px, 100vw"
@@ -95,20 +128,20 @@ export default function Home() {
               {
                 title: "Dresses",
                 description: "Soft silhouettes for day-to-night.",
-                imageSrc: "/products/dress.jpg",
-                imageAlt: "Dress category image",
+                imageSrc: "/products/posing.jpg",
+                imageAlt: "Model wearing a dress in a modern look",
               },
               {
                 title: "Blazers",
                 description: "Tailored layers with a modern edge.",
-                imageSrc: "/products/graphic.jpg",
-                imageAlt: "Blazer category image",
+                imageSrc: "/products/two-girls-red-coats-models.jpg",
+                imageAlt: "Models wearing tailored outerwear",
               },
               {
                 title: "Essentials",
                 description: "Everyday staples you’ll rewear.",
-                imageSrc: "/products/shirt.jpg",
-                imageAlt: "Essentials category image",
+                imageSrc: "/products/stylish-woman-spending-time-summer-field.jpg",
+                imageAlt: "Minimal everyday outfit outdoors",
               },
             ].map((cat) => (
               <Link
@@ -157,7 +190,7 @@ export default function Home() {
           </header>
 
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {PRODUCTS.slice(0, 6).map((product) => (
+            {featured.map((product) => (
               <article
                 key={product.id}
                 className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-rose-100 transition hover:-translate-y-0.5 hover:shadow-md"
