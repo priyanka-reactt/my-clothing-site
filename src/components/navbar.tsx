@@ -7,39 +7,46 @@ export default function Navbar() {
 
   // 🔥 cart count load from localStorage
   useEffect(() => {
-    function updateCartCount() {
-      try {
-        const raw = localStorage.getItem("luxeher_cart_v1");
-        if (!raw) {
-          setCartCount(0);
-          return;
-        }
+  function updateCartCount() {
+    try {
+      const raw = localStorage.getItem("luxeher_cart_v1");
 
-        const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed)) {
-          setCartCount(0);
-          return;
-        }
-
-        const total = parsed.reduce(
-          (sum: number, item: { quantity?: number }) =>
-            sum + (item.quantity || 0),
-          0
-        );
-
-        setCartCount(total);
-      } catch {
+      if (!raw) {
         setCartCount(0);
+        return;
       }
+
+      const parsed = JSON.parse(raw);
+
+      if (!Array.isArray(parsed)) {
+        setCartCount(0);
+        return;
+      }
+
+      const total = parsed.reduce(
+        (sum: number, item: { quantity?: number }) =>
+          sum + (item.quantity || 0),
+        0
+      );
+
+      setCartCount(total);
+    } catch {
+      setCartCount(0);
     }
-    
+  }
 
-    updateCartCount();
+  // 🔥 first load
+  updateCartCount();
 
-    // optional (other tabs ke liye)
-    window.addEventListener("storage", updateCartCount);
-    return () => window.removeEventListener("storage", updateCartCount);
-  }, []);
+  // 🔥 listen both events
+  window.addEventListener("storage", updateCartCount);
+  window.addEventListener("cartUpdated", updateCartCount);
+
+  return () => {
+    window.removeEventListener("storage", updateCartCount);
+    window.removeEventListener("cartUpdated", updateCartCount);
+  };
+}, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-pink-100/80 bg-white/90 backdrop-blur">
