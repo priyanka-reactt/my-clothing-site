@@ -34,8 +34,14 @@ export default function ProductDetailPage() {
         ) : (
           <section className="grid gap-8 lg:grid-cols-2">
             <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-rose-100">
-              <div className="relative aspect-4/5 bg-rose-50">
-                <Image src={product.imageSrc} alt={product.imageAlt} fill className="object-cover" />
+              <div className="relative aspect-[4/5] bg-rose-50">
+                <Image
+                  src={product.imageSrc}
+                  alt={product.imageAlt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             </div>
 
