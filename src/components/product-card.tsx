@@ -12,11 +12,12 @@ export default function ProductCard({ product, onAddToCart, isInCart }: ProductC
   return (
     <article className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-rose-100 transition hover:-translate-y-0.5 hover:shadow-md">
       <Link href={`/products/${product.id}`} className="block">
-        <div className="relative aspect-4/5 overflow-hidden bg-rose-50">
+        <div className="relative aspect-[4/5] overflow-hidden bg-rose-50">
           <Image
             src={product.imageSrc}
             alt={product.imageAlt}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         </div>
