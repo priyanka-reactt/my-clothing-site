@@ -1,6 +1,8 @@
+
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
+
 import { PRODUCTS } from "@/data/products";
 
 export default function Home() {
@@ -33,8 +35,13 @@ export default function Home() {
 
   const featured = PRODUCTS.slice(0, 6).map((product) => {
     const override = featuredImageById[product.id];
+
     return override
-      ? { ...product, imageSrc: override.src, imageAlt: override.alt }
+      ? {
+          ...product,
+          imageSrc: override.src,
+          imageAlt: override.alt,
+        }
       : product;
   });
 
@@ -43,13 +50,15 @@ export default function Home() {
       <Navbar />
 
       <main className="mx-auto max-w-6xl px-4 py-12">
-
         {/* HERO */}
         <section className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-4xl font-bold">Women&apos;s Fashion</h1>
+
+            <p className="mt-4 text-2xl font-semibold">
               Style that feels as good as it looks.
-            </h1>
+            </p>
+
             <p className="mt-4 text-gray-600">
               Discover modern fashion made for confidence.
             </p>
@@ -57,13 +66,14 @@ export default function Home() {
             <div className="mt-6 flex gap-3">
               <Link
                 href="/shop"
-                className="bg-pink-600 text-white px-6 py-3 rounded-full"
+                className="rounded-full bg-pink-600 px-6 py-3 text-white"
               >
                 Shop Now
               </Link>
+
               <Link
                 href="#categories"
-                className="border px-6 py-3 rounded-full"
+                className="rounded-full border px-6 py-3"
               >
                 Categories
               </Link>
@@ -84,33 +94,56 @@ export default function Home() {
         <section id="categories" className="mt-16">
           <h2 className="text-2xl font-semibold">Categories</h2>
 
-          <div className="grid gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Dresses",
                 image: "/products/posing.jpg",
+                productId: "blush-midi-dress",
               },
               {
                 title: "Blazers",
                 image: "/products/two-girls-red-coats-models.jpg",
+                productId: "tailored-blazer",
               },
               {
                 title: "Essentials",
-                image: "/products/stylish-woman-spending-time-summer-field.jpg",
+                image:
+                  "/products/stylish-woman-spending-time-summer-field.jpg",
+                productId: "ivory-essential-tee",
               },
-            ].map((cat) => (
-              <div key={cat.title} className="bg-white p-4 rounded-xl shadow">
-                <div className="relative h-[220px] w-full">
-                  <Image
-                    src={cat.image}
-                    alt={cat.title}
-                    fill
-                    className="object-contain"
-                  />
+            ].map((cat) => {
+              const product = PRODUCTS.find((p) => p.id === cat.productId);
+
+              return (
+                <div
+                  key={cat.title}
+                  className="rounded-xl bg-white p-4 shadow"
+                >
+                  <div className="relative h-[500px] w-full bg-white">
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  <h3 className="mt-3 font-semibold">{cat.title}</h3>
+
+                  <p className="font-medium text-pink-600">
+                    ${product?.price}
+                  </p>
+
+                  <Link
+  href={`/products/${cat.productId}`}
+  className="mt-3 block rounded-full bg-pink-600 py-2 text-center text-white"
+>
+  View Details
+</Link>
                 </div>
-                <p className="mt-2 font-medium">{cat.title}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -118,28 +151,30 @@ export default function Home() {
         <section className="mt-16">
           <h2 className="text-2xl font-semibold">Featured Products</h2>
 
-          <div className="grid gap-6 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((product) => (
-              <div key={product.id} className="bg-white p-4 rounded-xl shadow">
-                
-                {/* ✅ IMAGE FIXED */}
-                <div className="relative h-[300px] w-full bg-white">
+              <div
+                key={product.id}
+                className="rounded-xl bg-white p-4 shadow"
+              >
+                <div className="relative h-[500px] w-full bg-white">
                   <Image
                     src={product.imageSrc}
                     alt={product.imageAlt}
                     fill
-                    className="object-contain p-3"
+                    className="object-contain"
                   />
                 </div>
 
                 <h3 className="mt-3 font-semibold">{product.title}</h3>
-                <p className="text-pink-600 font-medium">
+
+                <p className="font-medium text-pink-600">
                   ${product.price}
                 </p>
 
                 <Link
                   href={`/products/${product.id}`}
-                  className="block mt-3 text-center bg-pink-600 text-white py-2 rounded-full"
+                  className="mt-3 block rounded-full bg-pink-600 py-2 text-center text-white"
                 >
                   View Details
                 </Link>
@@ -149,18 +184,121 @@ export default function Home() {
         </section>
 
         {/* TRUST */}
-        <section className="mt-16 grid grid-cols-3 gap-4 text-center">
-          <div>🚚 Free Delivery</div>
-          <div>🔁 Easy Returns</div>
-          <div>🔒 Secure Payment</div>
-        </section>
+        <section className="mt-16 grid gap-6 sm:grid-cols-3">
+          <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+            <div className="text-3xl">🚚</div>
 
+            <h3 className="mt-3 font-semibold">Free Shipping</h3>
+
+            <p className="mt-2 text-sm text-gray-600">
+              Free shipping on orders over $50
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+            <div className="text-3xl">🔁</div>
+
+            <h3 className="mt-3 font-semibold">Easy Returns</h3>
+
+            <p className="mt-2 text-sm text-gray-600">
+              Easy 7-day returns
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+            <div className="text-3xl">🔒</div>
+
+            <h3 className="mt-3 font-semibold">Secure Payment</h3>
+
+            <p className="mt-2 text-sm text-gray-600">
+              Safe and secure checkout
+            </p>
+          </div>
+        </section>
       </main>
 
       {/* FOOTER */}
-      <footer className="mt-16 p-6 text-center border-t">
-        <p>© 2026 LuxeHer</p>
-      </footer>
+      
+      ```tsx
+{/* FOOTER */}
+<footer className="mt-20 border-t border-pink-100 bg-rose-50">
+  <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-3">
+    {/* Brand */}
+    <div>
+      <Link
+        href="/"
+        className="text-2xl font-bold tracking-tight text-pink-600"
+      >
+        LuxeHer
+      </Link>
+
+      <p className="mt-4 max-w-sm text-sm leading-6 text-gray-600">
+        Modern women&apos;s fashion made for everyday confidence and
+        effortless style.
+      </p>
+
+      <p className="mt-5 text-sm font-medium text-gray-800">
+        Style that feels as good as it looks.
+      </p>
+    </div>
+
+    {/* Quick Links */}
+    <div>
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+        Quick Links
+      </h3>
+
+      <div className="mt-5 flex flex-col gap-3 text-sm text-gray-600">
+        <Link href="/" className="transition hover:text-pink-600">
+          Home
+        </Link>
+
+        <Link href="/shop" className="transition hover:text-pink-600">
+          Shop
+        </Link>
+
+        <Link href="/shop" className="transition hover:text-pink-600">
+          New Arrivals
+        </Link>
+
+        <Link href="/#categories" className="transition hover:text-pink-600">
+          Collections
+        </Link>
+      </div>
+    </div>
+
+    {/* Customer Care */}
+    <div>
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+        Customer Care
+      </h3>
+
+      <div className="mt-5 flex flex-col gap-3 text-sm text-gray-600">
+        <Link href="/contact" className="transition hover:text-pink-600">
+          Contact Us
+        </Link>
+
+        <Link href="/shipping" className="transition hover:text-pink-600">
+  Shipping Information
+</Link>
+
+<Link href="/returns" className="transition hover:text-pink-600">
+  Returns & Exchanges
+</Link>
+      </div>
+    </div>
+  </div>
+
+  <div className="border-t border-pink-100">
+    <div className="mx-auto max-w-6xl px-4 py-5 text-center text-sm text-gray-500">
+      © 2026 LuxeHer. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+
+
     </div>
   );
 }
